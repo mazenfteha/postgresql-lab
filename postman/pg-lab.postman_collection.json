@@ -1,0 +1,89 @@
+{
+  "info": {
+    "name": "pg-lab",
+    "description": "Postgres Feature Lab. One folder per phase. Change {{baseUrl}} in the collection variables if the server isn't on :3000.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "productId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "00 Foundation",
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/health", "host": ["{{baseUrl}}"], "path": ["health"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "01 JSONB",
+      "item": [
+        {
+          "name": "By attributes: color red",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/by-attributes?filter={\"color\":\"red\"}",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "by-attributes"],
+              "query": [{ "key": "filter", "value": "{\"color\":\"red\"}" }]
+            }
+          }
+        },
+        {
+          "name": "By attributes: red + size XL",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/by-attributes?filter={\"color\":\"red\",\"size\":\"XL\"}",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "by-attributes"],
+              "query": [{ "key": "filter", "value": "{\"color\":\"red\",\"size\":\"XL\"}" }]
+            }
+          }
+        },
+        {
+          "name": "By attributes: wireless electronics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/by-attributes?filter={\"wireless\":true}",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "by-attributes"],
+              "query": [{ "key": "filter", "value": "{\"wireless\":true}" }]
+            }
+          }
+        },
+        {
+          "name": "By attributes: bad JSON (expect 400)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/by-attributes?filter=not-json",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "by-attributes"],
+              "query": [{ "key": "filter", "value": "not-json" }]
+            }
+          }
+        },
+        {
+          "name": "Attributes of one product",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}/attributes",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}", "attributes"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

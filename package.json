@@ -8,8 +8,10 @@
     "db:down": "docker compose down",
     "db:reset": "docker compose down -v && docker compose up -d --build --wait && prisma migrate reset --force --skip-seed",
     "migrate": "prisma migrate dev",
+    "studio": "prisma studio",
     "seed": "tsx scripts/seed.ts",
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "jsonb:explain": "tsx scripts/jsonb-explain.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",

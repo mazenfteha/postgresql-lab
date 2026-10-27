@@ -14,7 +14,11 @@ model Product {
   price       Decimal     @db.Decimal(10, 2)
   category    String
   createdAt   DateTime    @default(now())
+  attributes  Json        @default("{}")
   orderItems  OrderItem[]
+
+  // Declared here only so Prisma doesn't see drift; the SQL lives in the migration.
+  @@index([attributes(ops: JsonbPathOps)], type: Gin, map: "product_attributes_gin")
 }
 
 model Customer {
