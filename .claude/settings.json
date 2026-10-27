@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.prisma.io)",
+      "WebSearch",
+      "WebFetch(domain:hub.docker.com)",
+      "Bash(npm -v)",
+      "Bash(docker --version)",
+      "Bash(docker compose *)",
+      "WebFetch(domain:api.github.com)"
+    ]
+  }
+}

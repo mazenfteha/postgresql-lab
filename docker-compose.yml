@@ -1,0 +1,29 @@
+services:
+  db:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.postgres
+    image: pg-lab-postgres:17
+    environment:
+      POSTGRES_USER: lab
+      POSTGRES_PASSWORD: lab
+      POSTGRES_DB: lab
+    ports:
+      - "5433:5432" # host 5433, local Postgres already uses 5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lab -d lab"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Extra services go here in later phases (e.g. Electric in phase 08).
+  # electric:
+  #   image: electricsql/electric:<version>
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+
+volumes:
+  pgdata:

@@ -1,0 +1,12 @@
+FROM postgis/postgis:17-3.6-alpine
+
+# Alpine has no postgresql-17-pgvector package, so build pgvector from source.
+# with_llvm=no: skip JIT bitcode so we don't need clang/llvm in the image.
+ARG PGVECTOR_VERSION=v0.8.7
+RUN apk add --no-cache --virtual .build-deps git build-base \
+ && git clone --branch ${PGVECTOR_VERSION} --depth 1 https://github.com/pgvector/pgvector.git /tmp/pgvector \
+ && cd /tmp/pgvector \
+ && make with_llvm=no OPTFLAGS="" \
+ && make install with_llvm=no \
+ && cd / && rm -rf /tmp/pgvector \
+ && apk del .build-deps
