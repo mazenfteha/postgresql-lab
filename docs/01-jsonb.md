@@ -1,5 +1,7 @@
 # 01 JSONB
 
+![Phase 01 animation](anim/01-jsonb.svg)
+
 ## What it is
 A `jsonb` column stores each product's own attributes (a shirt has `size`/`color`, a toy has `age_min`/`pieces`) without 50 nullable columns. Postgres stores it in a parsed binary form, so you can query inside it and index it.
 

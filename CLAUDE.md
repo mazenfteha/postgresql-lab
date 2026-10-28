@@ -54,6 +54,7 @@ Each feature folder contains its own `CLAUDE.md` with the spec for that phase.
 2. Implement exactly what it lists, and add the phase's requests as a folder in the Postman collection.
 3. Run the "Verify" steps and paste the key output into `docs/NN-feature.md`.
 4. The doc note has four short sections: **What it is**, **The SQL that matters**, **What I measured**, **Gotchas**.
+   It starts with the phase animation: `docs/anim/NN-feature.svg`, a CSS-animated SVG (no JS, so it plays in a GitHub README) that walks through the phase in about 3 scenes, using the real measured numbers. Also add a row and the animation to the root `README.md`.
 5. Tick the checkbox below, commit, stop.
 
 ## npm scripts (created in phase 00)
@@ -62,7 +63,7 @@ Each feature folder contains its own `CLAUDE.md` with the spec for that phase.
 ## Progress
 - [x] 00 Foundation
 - [x] 01 JSONB
-- [ ] 02 Full-text search
+- [x] 02 Full-text search
 - [ ] 03 pgvector
 - [ ] 04 pgai (optional)
 - [ ] 05 PostGIS

@@ -1,6 +1,7 @@
 import express from "express";
 import { prisma } from "./db.js";
 import { jsonbRouter } from "./features/01-jsonb/jsonb.routes.js";
+import { fulltextRouter } from "./features/02-fulltext/fulltext.routes.js";
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,7 @@ app.get("/health", async (_req, res) => {
 
 // Feature routers
 app.use(jsonbRouter);
+app.use(fulltextRouter);
 
 const port = Number(process.env.PORT ?? 3000);
 app.listen(port, () => console.log(`listening on http://localhost:${port}`));

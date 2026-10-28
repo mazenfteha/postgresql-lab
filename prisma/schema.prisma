@@ -15,10 +15,16 @@ model Product {
   category    String
   createdAt   DateTime    @default(now())
   attributes  Json        @default("{}")
+  // Generated column (see migration). Never read/write through the Prisma client.
+  // Postgres stores the generation expression like a default, so Prisma must be told about it
+  // via dbgenerated(), otherwise it generates "DROP DEFAULT" (which Postgres rejects).
+  search_vector Unsupported("tsvector")? @default(dbgenerated("to_tsvector('english'::regconfig, ((COALESCE(name, ''::text) || ' '::text) || COALESCE(description, ''::text)))"))
   orderItems  OrderItem[]
 
-  // Declared here only so Prisma doesn't see drift; the SQL lives in the migration.
+  // Declared here only so Prisma doesn't see drift; the SQL lives in the migrations.
   @@index([attributes(ops: JsonbPathOps)], type: Gin, map: "product_attributes_gin")
+  @@index([search_vector], type: Gin, map: "product_search_gin")
+  @@index([name(ops: raw("gin_trgm_ops"))], type: Gin, map: "product_name_trgm")
 }
 
 model Customer {

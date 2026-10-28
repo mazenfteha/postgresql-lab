@@ -11,7 +11,8 @@
     "studio": "prisma studio",
     "seed": "tsx scripts/seed.ts",
     "dev": "tsx watch src/server.ts",
-    "jsonb:explain": "tsx scripts/jsonb-explain.ts"
+    "jsonb:explain": "tsx scripts/jsonb-explain.ts",
+    "search:compare": "tsx scripts/search-compare.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",

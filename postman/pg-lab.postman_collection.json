@@ -84,6 +84,83 @@
           }
         }
       ]
+    },
+    {
+      "name": "02 Full-text search",
+      "item": [
+        {
+          "name": "Search: wireless headphones",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/search?q=wireless headphones",
+              "host": ["{{baseUrl}}"],
+              "path": ["search"],
+              "query": [{ "key": "q", "value": "wireless headphones" }]
+            }
+          }
+        },
+        {
+          "name": "Search: websearch syntax (\"yoga mat\" -cotton)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/search?q=\"yoga mat\" -cotton",
+              "host": ["{{baseUrl}}"],
+              "path": ["search"],
+              "query": [{ "key": "q", "value": "\"yoga mat\" -cotton" }]
+            }
+          }
+        },
+        {
+          "name": "Search: stemming (cleaning -> clean)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/search?q=cleaning",
+              "host": ["{{baseUrl}}"],
+              "path": ["search"],
+              "query": [{ "key": "q", "value": "cleaning" }]
+            }
+          }
+        },
+        {
+          "name": "Fuzzy: wireles hedphones",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/search/fuzzy?q=wireles hedphones",
+              "host": ["{{baseUrl}}"],
+              "path": ["search", "fuzzy"],
+              "query": [{ "key": "q", "value": "wireles hedphones" }]
+            }
+          }
+        },
+        {
+          "name": "Fuzzy: tnnis rackt",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/search/fuzzy?q=tnnis rackt",
+              "host": ["{{baseUrl}}"],
+              "path": ["search", "fuzzy"],
+              "query": [{ "key": "q", "value": "tnnis rackt" }]
+            }
+          }
+        },
+        {
+          "name": "Search: empty q (expect 400)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/search?q=",
+              "host": ["{{baseUrl}}"],
+              "path": ["search"],
+              "query": [{ "key": "q", "value": "" }]
+            }
+          }
+        }
+      ]
     }
   ]
 }
