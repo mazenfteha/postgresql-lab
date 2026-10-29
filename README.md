@@ -12,6 +12,7 @@ A learning project: each phase demos **one PostgreSQL feature** on a tiny e-comm
 | 01 | JSONB | Per-category product attributes in one `jsonb` column + GIN index | [docs](docs/01-jsonb.md) |
 | 02 | Full-text search | Ranked search with `tsvector`, typo-tolerant search with `pg_trgm` | [docs](docs/02-fulltext.md) |
 | 03 | pgvector | Semantic search + "similar products" with local embeddings and an HNSW index | [docs](docs/03-pgvector.md) |
+| 04 | pgai | _skipped: the project was archived in 2026_ | [notes](docs/04-pgai.md) |
 
 ### 01 · JSONB
 

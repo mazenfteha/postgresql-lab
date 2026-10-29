@@ -65,7 +65,7 @@ Each feature folder contains its own `CLAUDE.md` with the spec for that phase.
 - [x] 01 JSONB
 - [x] 02 Full-text search
 - [x] 03 pgvector
-- [ ] 04 pgai (optional)
+- [~] 04 pgai (skipped: project archived 2026, see docs/04-pgai.md)
 - [ ] 05 PostGIS
 - [ ] 06 Unlogged tables
 - [ ] 07 Time-series (pg_mooncake)
