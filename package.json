@@ -13,7 +13,9 @@
     "dev": "tsx watch src/server.ts",
     "jsonb:explain": "tsx scripts/jsonb-explain.ts",
     "search:compare": "tsx scripts/search-compare.ts",
-    "embed": "tsx scripts/embed-products.ts"
+    "embed": "tsx scripts/embed-products.ts",
+    "seed:stores": "tsx scripts/seed-stores.ts",
+    "postgis:explain": "tsx scripts/postgis-explain.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "^3.8.1",

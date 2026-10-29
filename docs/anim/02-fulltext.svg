@@ -2,6 +2,8 @@
   <title id="t">Phase 02: Full-text search in Postgres</title>
   <desc id="d">Three scenes. 1: ILIKE '%term%' scans all 5,000 rows in 9.6 ms. 2: full-text search stems "cleaning" to "clean" and uses a GIN index, 0.15 ms, 66 times faster. 3: pg_trgm splits words into 3-letter chunks; the typo "tnnis" shares 4 chunks with "tennis", scoring 0.58, which passes once the threshold is lowered from 0.6 to 0.5.</desc>
   <style>
+    /* hover to pause (works when the SVG is opened directly; GitHub README images ignore hover) */
+    svg:hover * { animation-play-state: paused; }
     text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; fill: #e6edf3; }
     .muted { fill: #8b949e; }
     .red { fill: #f85149; } .green { fill: #3fb950; } .blue { fill: #58a6ff; }

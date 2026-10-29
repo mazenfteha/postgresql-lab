@@ -2,6 +2,8 @@
   <title id="t">Phase 01: JSONB product attributes in Postgres</title>
   <desc id="d">Three scenes. 1: products with different attribute shapes (clothing, electronics, toys) all live in one jsonb column instead of many nullable columns. 2: the containment query attributes @> '{"color":"red"}' uses a GIN index: 3 index pages read, 474 rows found on 137 pages, 0.42 ms. 3: because the 474 red rows are spread over 137 of about 140 table pages, the index barely helps; a more selective filter like color red plus size XL touches only a few pages.</desc>
   <style>
+    /* hover to pause (works when the SVG is opened directly; GitHub README images ignore hover) */
+    svg:hover * { animation-play-state: paused; }
     text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; fill: #e6edf3; }
     .muted { fill: #8b949e; }
     .red { fill: #f85149; } .green { fill: #3fb950; } .blue { fill: #58a6ff; } .yellow { fill: #d29922; }

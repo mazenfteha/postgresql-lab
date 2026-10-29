@@ -30,6 +30,16 @@ model Product {
   @@index([name(ops: raw("gin_trgm_ops"))], type: Gin, map: "product_name_trgm")
 }
 
+model Store {
+  id       Int    @id @default(autoincrement())
+  name     String
+  // PostGIS point (lng/lat on the WGS 84 globe). Read/write only with raw SQL.
+  // Required, not optional: the phase spec makes it NOT NULL, and the schema must match the DB.
+  location Unsupported("geography(Point, 4326)")
+
+  @@index([location], type: Gist, map: "store_location_gist")
+}
+
 model Customer {
   id     Int     @id @default(autoincrement())
   name   String

@@ -13,6 +13,7 @@ A learning project: each phase demos **one PostgreSQL feature** on a tiny e-comm
 | 02 | Full-text search | Ranked search with `tsvector`, typo-tolerant search with `pg_trgm` | [docs](docs/02-fulltext.md) |
 | 03 | pgvector | Semantic search + "similar products" with local embeddings and an HNSW index | [docs](docs/03-pgvector.md) |
 | 04 | pgai | _skipped: the project was archived in 2026_ | [notes](docs/04-pgai.md) |
+| 05 | PostGIS | "Stores near me": `geography` points, `ST_DWithin` + GiST index | [docs](docs/05-postgis.md) |
 
 ### 01 · JSONB
 
@@ -26,6 +27,10 @@ A learning project: each phase demos **one PostgreSQL feature** on a tiny e-comm
 
 ![Phase 03 animation: text becomes 384 numbers, nearest neighbours find similar products, semantic search answers where keywords return nothing](docs/anim/03-pgvector.svg)
 
+### 05 · PostGIS
+
+![Phase 05 animation: 200 stores around Cairo, the GiST bounding-box test then the exact distance check, nearest stores first](docs/anim/05-postgis.svg)
+
 ## Run it
 
 Requires Node 20+, Docker, and port 5433 free (the database is mapped there).
@@ -36,6 +41,7 @@ npm run db:up      # build + start Postgres (first build compiles pgvector)
 npm run migrate    # apply migrations, generate the Prisma client
 npm run seed       # 5,000 products, 50 customers
 npm run embed      # phase 03: embeddings for every product (~3.5 min on CPU)
+npm run seed:stores # phase 05: 200 stores around Cairo
 npm run dev        # API on http://localhost:3000
 ```
 

@@ -2,6 +2,8 @@
   <title id="t">Phase 03: Vector search with pgvector</title>
   <desc id="d">Three scenes. 1: each product's name and description go through the local all-MiniLM-L6-v2 model and become 384 numbers stored in a vector(384) column; 5,000 products took 211.4 s on CPU. 2: similar products to "Modern Recycled Running Shoes" are its nearest neighbours by cosine distance, all running shoes at 0.19 to 0.24. 3: "something to keep my coffee hot" returns 0 rows with full-text search, while semantic search returns coffee grinders at distance about 0.51, a loose match.</desc>
   <style>
+    /* hover to pause (works when the SVG is opened directly; GitHub README images ignore hover) */
+    svg:hover * { animation-play-state: paused; }
     text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; fill: #e6edf3; }
     .muted { fill: #8b949e; }
     .red { fill: #f85149; } .green { fill: #3fb950; } .blue { fill: #58a6ff; } .amber { fill: #d29922; }
