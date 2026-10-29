@@ -6,7 +6,8 @@
   },
   "variable": [
     { "key": "baseUrl", "value": "http://localhost:3000" },
-    { "key": "productId", "value": "1" }
+    { "key": "productId", "value": "1" },
+    { "key": "shoeId", "value": "1", "description": "Set to the id of a Running Shoes product (find one with 02 > Search: running shoes)" }
   ],
   "item": [
     {
@@ -156,6 +157,82 @@
               "raw": "{{baseUrl}}/search?q=",
               "host": ["{{baseUrl}}"],
               "path": ["search"],
+              "query": [{ "key": "q", "value": "" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 pgvector",
+      "item": [
+        {
+          "name": "Find a shoe id (FTS): running shoes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/search?q=running shoes",
+              "host": ["{{baseUrl}}"],
+              "path": ["search"],
+              "query": [{ "key": "q", "value": "running shoes" }]
+            }
+          }
+        },
+        {
+          "name": "Similar products to {{shoeId}}",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/{{shoeId}}/similar",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{shoeId}}", "similar"]
+            }
+          }
+        },
+        {
+          "name": "Semantic: something to keep my coffee hot",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/search/semantic?q=something to keep my coffee hot",
+              "host": ["{{baseUrl}}"],
+              "path": ["search", "semantic"],
+              "query": [{ "key": "q", "value": "something to keep my coffee hot" }]
+            }
+          }
+        },
+        {
+          "name": "FTS on the same query (expect 0 rows)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/search?q=something to keep my coffee hot",
+              "host": ["{{baseUrl}}"],
+              "path": ["search"],
+              "query": [{ "key": "q", "value": "something to keep my coffee hot" }]
+            }
+          }
+        },
+        {
+          "name": "Semantic: a gift for a kid who likes building things",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/search/semantic?q=a gift for a kid who likes building things",
+              "host": ["{{baseUrl}}"],
+              "path": ["search", "semantic"],
+              "query": [{ "key": "q", "value": "a gift for a kid who likes building things" }]
+            }
+          }
+        },
+        {
+          "name": "Semantic: empty q (expect 400)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/search/semantic?q=",
+              "host": ["{{baseUrl}}"],
+              "path": ["search", "semantic"],
               "query": [{ "key": "q", "value": "" }]
             }
           }

@@ -64,7 +64,7 @@ Each feature folder contains its own `CLAUDE.md` with the spec for that phase.
 - [x] 00 Foundation
 - [x] 01 JSONB
 - [x] 02 Full-text search
-- [ ] 03 pgvector
+- [x] 03 pgvector
 - [ ] 04 pgai (optional)
 - [ ] 05 PostGIS
 - [ ] 06 Unlogged tables

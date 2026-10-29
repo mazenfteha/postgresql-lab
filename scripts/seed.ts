@@ -4,8 +4,8 @@ const PRODUCT_COUNT = 5000;
 const CUSTOMER_COUNT = 50;
 
 const catalog: Record<string, string[]> = {
-  Kitchen: ["Chef Knife", "Frying Pan", "Cutting Board", "Coffee Grinder", "Teapot", "Mixing Bowl"],
-  Outdoor: ["Tent", "Hiking Backpack", "Sleeping Bag", "Camping Stove", "Water Bottle", "Trekking Poles"],
+  Kitchen: ["Chef Knife", "Frying Pan", "Cutting Board", "Coffee Grinder", "Teapot", "Mixing Bowl", "Travel Mug"],
+  Outdoor: ["Tent", "Hiking Backpack", "Sleeping Bag", "Camping Stove", "Water Bottle", "Trekking Poles", "Vacuum Flask"],
   Electronics: ["Wireless Headphones", "Bluetooth Speaker", "USB-C Charger", "Mechanical Keyboard", "Webcam", "Power Bank"],
   Home: ["Desk Lamp", "Throw Blanket", "Wall Clock", "Plant Pot", "Storage Basket", "Scented Candle"],
   Clothing: ["Rain Jacket", "Wool Sweater", "Running Shoes", "Denim Jeans", "Beanie", "Linen Shirt"],

@@ -19,6 +19,9 @@ model Product {
   // Postgres stores the generation expression like a default, so Prisma must be told about it
   // via dbgenerated(), otherwise it generates "DROP DEFAULT" (which Postgres rejects).
   search_vector Unsupported("tsvector")? @default(dbgenerated("to_tsvector('english'::regconfig, ((COALESCE(name, ''::text) || ' '::text) || COALESCE(description, ''::text)))"))
+  // all-MiniLM-L6-v2 embedding (384 dims), written by scripts/embed-products.ts.
+  // Its HNSW index can't be expressed in Prisma 6: delete any generated "DROP INDEX product_embedding_hnsw".
+  embedding     Unsupported("vector(384)")?
   orderItems  OrderItem[]
 
   // Declared here only so Prisma doesn't see drift; the SQL lives in the migrations.

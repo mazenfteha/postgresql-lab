@@ -11,7 +11,7 @@ A learning project: each phase demos **one PostgreSQL feature** on a tiny e-comm
 | 00 | Foundation | Express + Prisma + Postgres in Docker, 5,000 seeded products | [docs](docs/00-foundation.md) |
 | 01 | JSONB | Per-category product attributes in one `jsonb` column + GIN index | [docs](docs/01-jsonb.md) |
 | 02 | Full-text search | Ranked search with `tsvector`, typo-tolerant search with `pg_trgm` | [docs](docs/02-fulltext.md) |
-| 03 | pgvector | _coming next_ | |
+| 03 | pgvector | Semantic search + "similar products" with local embeddings and an HNSW index | [docs](docs/03-pgvector.md) |
 
 ### 01 · JSONB
 
@@ -20,6 +20,10 @@ A learning project: each phase demos **one PostgreSQL feature** on a tiny e-comm
 ### 02 · Full-text search
 
 ![Phase 02 animation: ILIKE scans every row, full-text search uses a GIN index, pg_trgm tolerates typos](docs/anim/02-fulltext.svg)
+
+### 03 · pgvector
+
+![Phase 03 animation: text becomes 384 numbers, nearest neighbours find similar products, semantic search answers where keywords return nothing](docs/anim/03-pgvector.svg)
 
 ## Run it
 
@@ -30,6 +34,7 @@ npm install
 npm run db:up      # build + start Postgres (first build compiles pgvector)
 npm run migrate    # apply migrations, generate the Prisma client
 npm run seed       # 5,000 products, 50 customers
+npm run embed      # phase 03: embeddings for every product (~3.5 min on CPU)
 npm run dev        # API on http://localhost:3000
 ```
 
