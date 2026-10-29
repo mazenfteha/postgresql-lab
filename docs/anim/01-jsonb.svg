@@ -8,13 +8,13 @@
     .muted { fill: #8b949e; }
     .red { fill: #f85149; } .green { fill: #3fb950; } .blue { fill: #58a6ff; } .yellow { fill: #d29922; }
     .s1, .s2, .s3, .pop, .hold {
-      animation-duration: 20s; animation-iteration-count: infinite; animation-fill-mode: both;
+      animation-duration: 40s; animation-iteration-count: infinite; animation-fill-mode: both;
     }
     .s1 { animation-name: s1; } .s2 { animation-name: s2; } .s3 { animation-name: s3; }
     .pop { animation-name: pop; animation-timing-function: ease-out; }
     .hold { animation-name: hold; animation-timing-function: ease-out; }
 
-    /* 20s loop: scene 1 = 0-6s, scene 2 = 6-12s, scene 3 = 12-20s */
+    /* 40s loop: scene 1 = 0-12s, scene 2 = 12-24s, scene 3 = 24-40s */
     @keyframes s1 { 0% { opacity: 0 } 2.5% { opacity: 1 } 27.5% { opacity: 1 } 30% { opacity: 0 } 100% { opacity: 0 } }
     @keyframes s2 { 0%, 30% { opacity: 0 } 32.5% { opacity: 1 } 57.5% { opacity: 1 } 60% { opacity: 0 } 100% { opacity: 0 } }
     @keyframes s3 { 0%, 60% { opacity: 0 } 62.5% { opacity: 1 } 97.5% { opacity: 1 } 100% { opacity: 0 } }
@@ -48,21 +48,21 @@
     <text x="60" y="76" font-size="12" class="muted">1 · every category has its own attributes</text>
 
     <g font-size="12">
-      <g class="pop" style="animation-delay:0.3s">
+      <g class="pop" style="animation-delay:0.6s">
         <rect x="60" y="88" width="210" height="84" rx="8" fill="#161b22" stroke="#30363d"/>
         <text x="74" y="108" font-weight="700" class="blue">Clothing</text>
         <text x="74" y="128">{"size": "M",</text>
         <text x="74" y="144"> "color": "red",</text>
         <text x="74" y="160"> "fabric": "wool"}</text>
       </g>
-      <g class="pop" style="animation-delay:0.8s">
+      <g class="pop" style="animation-delay:1.6s">
         <rect x="295" y="88" width="210" height="84" rx="8" fill="#161b22" stroke="#30363d"/>
         <text x="309" y="108" font-weight="700" class="blue">Electronics</text>
         <text x="309" y="128">{"brand": "Acme",</text>
         <text x="309" y="144"> "wireless": true,</text>
         <text x="309" y="160"> "warranty_years": 2, …}</text>
       </g>
-      <g class="pop" style="animation-delay:1.3s">
+      <g class="pop" style="animation-delay:2.6s">
         <rect x="530" y="88" width="210" height="84" rx="8" fill="#161b22" stroke="#30363d"/>
         <text x="544" y="108" font-weight="700" class="blue">Toys</text>
         <text x="544" y="128">{"age_min": 6,</text>
@@ -70,13 +70,13 @@
       </g>
     </g>
 
-    <g class="pop" style="animation-delay:2.0s">
+    <g class="pop" style="animation-delay:4s">
       <rect x="60" y="190" width="680" height="26" rx="4" fill="#161b22"/>
       <text x="72" y="208" font-size="12" class="muted">name</text>
       <text x="340" y="208" font-size="12" class="muted">category</text>
       <text x="460" y="208" font-size="12" class="blue">attributes jsonb</text>
     </g>
-    <g class="pop" style="animation-delay:2.6s" font-size="12">
+    <g class="pop" style="animation-delay:5.2s" font-size="12">
       <text x="72" y="236">Classic Cotton Rain Jacket</text>
       <text x="340" y="236">Clothing</text>
       <text x="460" y="236">{"size":"M","color":"red",…}</text>
@@ -89,16 +89,16 @@
       <line x1="60" y1="244" x2="740" y2="244" stroke="#21262d"/>
       <line x1="60" y1="266" x2="740" y2="266" stroke="#21262d"/>
     </g>
-    <text x="60" y="318" font-size="13" class="red pop" style="animation-delay:3.4s">instead of 9+ mostly-NULL columns (size, brand, pieces, …)</text>
+    <text x="60" y="318" font-size="13" class="red pop" style="animation-delay:6.8s">instead of 9+ mostly-NULL columns (size, brand, pieces, …)</text>
     <text x="60" y="362" font-size="13">Shared fields stay real columns; the ones that vary live in one jsonb column.</text>
   </g>
 
   <!-- Scene 2: containment + GIN index -->
   <g class="s2">
     <text x="60" y="76" font-size="12" class="muted">2 · containment query + GIN index (jsonb_path_ops)</text>
-    <text x="60" y="104" font-size="14" class="pop" style="animation-delay:6.3s">WHERE attributes <tspan class="blue">@&gt;</tspan> '{"color":"red"}'</text>
+    <text x="60" y="104" font-size="14" class="pop" style="animation-delay:12.6s">WHERE attributes <tspan class="blue">@&gt;</tspan> '{"color":"red"}'</text>
 
-    <g class="pop" style="animation-delay:6.8s">
+    <g class="pop" style="animation-delay:13.6s">
       <rect x="60" y="122" width="330" height="150" rx="8" fill="#161b22" stroke="#30363d"/>
       <text x="76" y="146" font-size="12" class="muted">GIN index: key/value → rows</text>
       <text x="76" y="178" font-size="13">color=red     → [474 rows]</text>
@@ -106,24 +106,24 @@
       <text x="76" y="234" font-size="13">wireless=true → […]</text>
       <text x="76" y="258" font-size="11" class="muted">(stored as hashes: small and fast)</text>
     </g>
-    <rect x="68" y="161" width="314" height="24" rx="4" fill="#3fb950" fill-opacity="0.18" stroke="#3fb950" class="pop" style="animation-delay:7.6s"/>
+    <rect x="68" y="161" width="314" height="24" rx="4" fill="#3fb950" fill-opacity="0.18" stroke="#3fb950" class="pop" style="animation-delay:15.2s"/>
 
     <g font-size="12">
-      <g class="pop" style="animation-delay:8.2s">
+      <g class="pop" style="animation-delay:16.4s">
         <path d="M392 173 L414 173" stroke="#8b949e" stroke-width="1.5"/>
         <path d="M410 168 L418 173 L410 178 Z" fill="#8b949e"/>
         <rect x="422" y="122" width="318" height="40" rx="6" fill="none" stroke="#3fb950"/>
         <text x="436" y="140" font-weight="700" class="green">Bitmap Index Scan</text>
         <text x="436" y="155" class="muted">3 index pages read</text>
       </g>
-      <g class="pop" style="animation-delay:8.8s">
+      <g class="pop" style="animation-delay:17.6s">
         <path d="M581 164 L581 178" stroke="#8b949e" stroke-width="1.5"/>
         <path d="M576 174 L581 182 L586 174 Z" fill="#8b949e"/>
         <rect x="422" y="184" width="318" height="40" rx="6" fill="none" stroke="#3fb950"/>
         <text x="436" y="202" font-weight="700" class="green">Bitmap Heap Scan</text>
         <text x="436" y="217" class="muted">fetch 474 rows from 137 pages</text>
       </g>
-      <g class="pop" style="animation-delay:9.4s">
+      <g class="pop" style="animation-delay:18.8s">
         <path d="M581 226 L581 240" stroke="#8b949e" stroke-width="1.5"/>
         <path d="M576 236 L581 244 L586 236 Z" fill="#8b949e"/>
         <rect x="422" y="246" width="318" height="40" rx="6" fill="none" stroke="#30363d"/>
@@ -132,8 +132,8 @@
       </g>
     </g>
 
-    <text x="60" y="318" font-size="14" class="muted pop" style="animation-delay:9.8s">planner guessed 457, got 474 ✓</text>
-    <text x="740" y="318" font-size="15" font-weight="700" text-anchor="end" class="green pop" style="animation-delay:9.8s">with GIN index · 0.42 ms</text>
+    <text x="60" y="318" font-size="14" class="muted pop" style="animation-delay:19.6s">planner guessed 457, got 474 ✓</text>
+    <text x="740" y="318" font-size="15" font-weight="700" text-anchor="end" class="green pop" style="animation-delay:19.6s">with GIN index · 0.42 ms</text>
     <text x="60" y="362" font-size="13">The GIN index maps each key/value to rows, so @&gt; jumps straight to candidates.</text>
   </g>
 
@@ -144,7 +144,7 @@
     <rect x="60" y="150" width="680" height="140" fill="url(#pages)"/>
 
     <!-- A: {"color":"red"} = not selective -->
-    <g class="hold" style="animation-delay:12.3s">
+    <g class="hold" style="animation-delay:24.6s">
       <text x="60" y="104" font-size="14">'{"color":"red"}'</text>
       <text x="60" y="124" font-size="12" class="muted">474 rows (≈9% of products), spread across the table</text>
       <rect x="60" y="150" width="680" height="140" fill="url(#pagesHit)"/>
@@ -157,7 +157,7 @@
     </g>
 
     <!-- B: {"color":"red","size":"XL"} = selective -->
-    <g class="pop" style="animation-delay:16.4s">
+    <g class="pop" style="animation-delay:32.8s">
       <text x="60" y="104" font-size="14">'{"color":"red","size":"XL"}'</text>
       <text x="60" y="124" font-size="12" class="muted">red AND XL clothing: only a few rows</text>
       <g fill="#3fb950">
