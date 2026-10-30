@@ -348,6 +348,43 @@
           }
         },
         {
+          "name": "Update price to 80 (trigger deletes the cached copy)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"price\": 80 }" },
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}/price",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}", "price"]
+            }
+          }
+        },
+        {
+          "name": "Cached after update (expect MISS + price 80)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}/cached",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}", "cached"]
+            }
+          }
+        },
+        {
+          "name": "Update price: bad body (expect 400)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"price\": -5 }" },
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}/price",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}", "price"]
+            }
+          }
+        },
+        {
           "name": "Cached: unknown id (expect 404)",
           "request": {
             "method": "GET",

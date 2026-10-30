@@ -14,6 +14,7 @@ A learning project: each phase demos **one PostgreSQL feature** on a tiny e-comm
 | 03 | pgvector | Semantic search + "similar products" with local embeddings and an HNSW index | [docs](docs/03-pgvector.md) |
 | 04 | pgai | _skipped: the project was archived in 2026_ | [notes](docs/04-pgai.md) |
 | 05 | PostGIS | "Stores near me": `geography` points, `ST_DWithin` + GiST index | [docs](docs/05-postgis.md) |
+| 06 | Unlogged tables | A Redis-like cache table without WAL, crash test, trigger-based invalidation | [docs](docs/06-unlogged.md) |
 
 ### 01 · JSONB
 
@@ -30,6 +31,10 @@ A learning project: each phase demos **one PostgreSQL feature** on a tiny e-comm
 ### 05 · PostGIS
 
 ![Phase 05 animation: 200 stores around Cairo, the GiST bounding-box test then the exact distance check, nearest stores first](docs/anim/05-postgis.svg)
+
+### 06 · Unlogged tables
+
+![Phase 06 animation: unlogged writes skip the WAL, a crash empties the unlogged table, a trigger invalidates the cache on product updates](docs/anim/06-unlogged.svg)
 
 ## Run it
 

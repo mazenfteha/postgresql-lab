@@ -1,5 +1,7 @@
 # 06 Unlogged tables
 
+![Phase 06 animation](anim/06-unlogged.svg)
+
 **Deviation from the phase spec:** the spec says not to model the cache tables in `schema.prisma`. But Prisma treats unknown tables as drift and would generate `DROP TABLE` in every later migration. They're declared with `@@ignore` instead, which keeps them out of the Prisma client (raw SQL only). Chosen as option A on 2026-10-30. Prisma's own hint for `@@ignore`: "When using Prisma Migrate, this model will be kept in sync with the database schema, however, it will not be exposed in Prisma Client." The drift check confirmed it: the only generated line was the known HNSW `DROP INDEX`. Prisma also doesn't notice `UNLOGGED`.
 
 ## What it is
@@ -38,6 +40,28 @@ About **60× less WAL, but no speedup.** With big batches there are only 200 com
 
 The logs show crash recovery: `database system was not properly shut down; automatic recovery in progress` → `redo starts` → `redo done … distance=69751 kB`. About 68 MB of WAL was replayed, which is basically what the benchmark had just written for `cache_logged`.
 
+## Cache invalidation (extension, user decision)
+The spec said no invalidation, but TTL alone serves a stale price for up to 60 s after an update. We added **one** strategy, delete-on-write, done by the database:
+```sql
+CREATE FUNCTION product_cache_invalidate() RETURNS trigger AS $$
+BEGIN
+  DELETE FROM cache_unlogged WHERE key = 'product:' || OLD.id;
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER product_cache_invalidate
+AFTER UPDATE OR DELETE ON "Product"
+FOR EACH ROW EXECUTE FUNCTION product_cache_invalidate();
+```
+Verified in Postman: MISS → HIT → `PATCH /products/1/price {"price": 80}` → **MISS with price 80**. Then an update from psql, outside the app (`UPDATE "Product" SET price = 55 WHERE id = 1`), → **MISS with price 55**. The PATCH endpoint is a plain Prisma update that knows nothing about the cache, so the trigger catches every writer. Prisma ignores functions and triggers: the drift check showed only the known HNSW line.
+
+| strategy | on write | trade-off |
+|---|---|---|
+| TTL only | nothing, wait for expiry | stale for up to 60 s |
+| **delete on write** (ours) | remove the cached copy | the next read reloads fresh data. Simple, the default choice |
+| write-through | overwrite the cached copy | no extra MISS, but two copies to keep in sync |
+
 ## When Redis is still the better choice
 When traffic is heavy or the database is already the bottleneck: Redis serves from RAM on a separate server (taking load *off* Postgres), and it evicts and expires keys by itself.
 
@@ -46,4 +70,5 @@ When traffic is heavy or the database is already the bottleneck: Redis serves fr
 - **Unlogged ≠ automatically faster.** Measure. Here, batching had already removed most of the commit cost.
 - **Windows PowerShell 5.1 mangles `\"`** in arguments passed to `docker`. The crash procedure uses `jsonb_build_object(...)` so no double quotes are needed.
 - **The HNSW `DROP INDEX` appeared again** in the generated migration and was deleted by hand.
-- **Stale cache:** with TTL only, a product update isn't visible for up to 60 s. TODO: trigger-based invalidation (next step).
+- **Shell quoting for `"Product"`:** Git Bash needs `\"Product\"` and PowerShell needs `""Product""`. Without the quotes Postgres lowercases the name to `product` and says the relation doesn't exist.
+- **Never delete an applied migration folder.** Only delete the *new* `drift_check` folder, by its exact name. Deleting the phase 02 one by wildcard caused `P3015`, fixed with `git checkout HEAD~1 -- <file>`.

@@ -26,3 +26,11 @@ export async function cachedProduct(id: number) {
   await cacheSet(key, product);
   return { cache: "MISS" as const, product };
 }
+
+// Plain Prisma update: it knows nothing about the cache.
+// The product_cache_invalidate trigger (see migration) deletes the cached copy.
+export async function updatePrice(id: number, price: number) {
+  const { count } = await prisma.product.updateMany({ where: { id }, data: { price } });
+  if (count === 0) return null;
+  return prisma.product.findUnique({ where: { id }, select: { id: true, name: true, price: true } });
+}

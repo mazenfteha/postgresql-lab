@@ -67,7 +67,7 @@ Each feature folder contains its own `CLAUDE.md` with the spec for that phase.
 - [x] 03 pgvector
 - [~] 04 pgai (skipped: project archived 2026, see docs/04-pgai.md)
 - [x] 05 PostGIS
-- [ ] 06 Unlogged tables
+- [x] 06 Unlogged tables
 - [ ] 07 Time-series (pg_mooncake)
 - [ ] 08 Electric SQL
 - [ ] 09 Postgres as a message queue

@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { cached } from "./unlogged.controller.js";
+import { cached, updatePrice } from "./unlogged.controller.js";
 
 export const unloggedRouter = Router();
 
 unloggedRouter.get("/products/:id/cached", cached);
+unloggedRouter.patch("/products/:id/price", updatePrice);

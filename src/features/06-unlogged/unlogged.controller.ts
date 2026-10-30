@@ -15,3 +15,19 @@ export async function cached(req: Request, res: Response) {
   }
   res.set("X-Cache", result.cache).json(result.product);
 }
+
+// PATCH /products/:id/price  body: { "price": 80 }
+export async function updatePrice(req: Request, res: Response) {
+  const id = Number(req.params.id);
+  const price = Number(req.body?.price);
+  if (!Number.isInteger(id) || !(price > 0)) {
+    res.status(400).json({ error: "integer id and body { price > 0 } are required" });
+    return;
+  }
+  const product = await service.updatePrice(id, price);
+  if (!product) {
+    res.status(404).json({ error: "product not found" });
+    return;
+  }
+  res.json(product);
+}

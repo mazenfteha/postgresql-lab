@@ -16,8 +16,13 @@ A tiny key/value cache table in Postgres, a benchmark against a normal table, an
 3. `scripts/unlogged-bench.ts`: insert/update 100,000 rows into each table in the same way (batched) and print both durations.
 4. `scripts/unlogged-crash.md` (a short manual procedure, not code): write a row to both tables, force an unclean stop of the Postgres container (`docker kill`, not `docker stop`), restart, and query both. Expected: the unlogged table is empty, the logged one kept its row.
 
+## Extension (user decision, 2026-10-30)
+The user overrode the "no invalidation" rule below for ONE strategy: delete-on-write via a Postgres trigger.
+- Migration: `product_cache_invalidate()` plpgsql function + `AFTER UPDATE OR DELETE ON "Product" FOR EACH ROW` trigger that deletes `product:<id>` from `cache_unlogged`.
+- Endpoint: `PATCH /products/:id/price` (plain Prisma update, unaware of the cache) to demo it.
+
 ## Do NOT
-- Implement eviction, cache invalidation strategies, Redis-style commands, or a cleanup job.
+- Implement eviction, other cache invalidation strategies (beyond the trigger above), Redis-style commands, or a cleanup job.
 - Use unlogged tables for any real business data.
 
 ## Verify
