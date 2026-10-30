@@ -15,7 +15,8 @@
     "search:compare": "tsx scripts/search-compare.ts",
     "embed": "tsx scripts/embed-products.ts",
     "seed:stores": "tsx scripts/seed-stores.ts",
-    "postgis:explain": "tsx scripts/postgis-explain.ts"
+    "postgis:explain": "tsx scripts/postgis-explain.ts",
+    "unlogged:bench": "tsx scripts/unlogged-bench.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "^3.8.1",

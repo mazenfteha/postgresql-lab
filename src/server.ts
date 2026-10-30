@@ -4,6 +4,7 @@ import { jsonbRouter } from "./features/01-jsonb/jsonb.routes.js";
 import { fulltextRouter } from "./features/02-fulltext/fulltext.routes.js";
 import { pgvectorRouter } from "./features/03-pgvector/pgvector.routes.js";
 import { postgisRouter } from "./features/05-postgis/postgis.routes.js";
+import { unloggedRouter } from "./features/06-unlogged/unlogged.routes.js";
 
 const app = express();
 app.use(express.json());
@@ -28,6 +29,7 @@ app.use(jsonbRouter);
 app.use(fulltextRouter);
 app.use(pgvectorRouter);
 app.use(postgisRouter);
+app.use(unloggedRouter);
 
 const port = Number(process.env.PORT ?? 3000);
 app.listen(port, () => console.log(`listening on http://localhost:${port}`));

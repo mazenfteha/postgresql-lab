@@ -321,6 +321,55 @@
           }
         }
       ]
+    },
+    {
+      "name": "06 Unlogged",
+      "item": [
+        {
+          "name": "Cached product (1st call: X-Cache MISS)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}/cached",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}", "cached"]
+            }
+          }
+        },
+        {
+          "name": "Cached product again (X-Cache HIT within 60s)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}/cached",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}", "cached"]
+            }
+          }
+        },
+        {
+          "name": "Cached: unknown id (expect 404)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/999999/cached",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "999999", "cached"]
+            }
+          }
+        },
+        {
+          "name": "Cached: bad id (expect 400)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/abc/cached",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "abc", "cached"]
+            }
+          }
+        }
+      ]
     }
   ]
 }
